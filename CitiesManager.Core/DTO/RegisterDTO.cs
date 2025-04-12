@@ -21,8 +21,8 @@ namespace CitiesManager.Core.DTO
         [Required(ErrorMessage = "Password can't be blank")]
         public string Password { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Password can't be blank")]
-        [Compare("Password", ErrorMessage = "Password and Compare Password should be same")]
-        public string ComparePassword { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Confirm Password can't be blank")]
+        [Compare("Password", ErrorMessage = "Password and Confirm Password should be the same")]
+        public string ConfirmPassword { get; set; } = string.Empty;
     }
 }

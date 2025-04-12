@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\CitiesAngularApp\src\app\validators\custom-validators.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.7" />
@@ -17,17 +21,21 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.8.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\" />
+    <ProjectReference Include="..\CitiesManager.Core\CitiesManager.Core.csproj" />
+    <ProjectReference Include="..\CitiesManager.Infrastructure\CitiesManager.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CitiesManager.Core\CitiesManager.Core.csproj" />
-    <ProjectReference Include="..\CitiesManager.Infrastructure\CitiesManager.Infrastructure.csproj" />
+    <TypeScriptCompile Include="ClientApp\CitiesAngularApp\src\app\validators\custom-validators.ts" />
   </ItemGroup>
 
 </Project>

@@ -27,6 +27,7 @@ namespace CitiesManager.WebAPI.Controllers.v1
             _roleManager = roleManager;
         }
 
+        [HttpPost("register")]
         public async Task<ActionResult<ApplicationUser>> PostRegister(RegisterDTO registerDTO)
         {
             if (ModelState.IsValid == false)
