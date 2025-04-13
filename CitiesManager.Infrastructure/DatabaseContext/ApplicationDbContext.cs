@@ -1,5 +1,5 @@
-﻿using CitiesManager.Core.Identity;
-using CitiesManager.Core.Models;
+﻿using CitiesManager.Core.Entities;
+using CitiesManager.Core.Identity;
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

@@ -1,6 +1,6 @@
 ﻿using Asp.Versioning;
 
-using CitiesManager.Core.Models;
+using CitiesManager.Core.Entities;
 using CitiesManager.Infrastructure.DatabaseContext;
 
 using Microsoft.AspNetCore.Cors;

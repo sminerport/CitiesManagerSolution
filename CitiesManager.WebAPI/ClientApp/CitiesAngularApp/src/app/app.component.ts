@@ -14,6 +14,7 @@ export class AppComponent {
     this.accountService.getLogout().subscribe({
       next: (resonse: string) => {
         this.accountService.currentUserName = null;
+        localStorage.removeItem("token");
 
         this.router.navigate(['/login'])
       },

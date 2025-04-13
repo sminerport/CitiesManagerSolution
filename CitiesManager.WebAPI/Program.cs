@@ -1,6 +1,8 @@
 using Asp.Versioning;
 
 using CitiesManager.Core.Identity;
+using CitiesManager.Core.ServiceContracts;
+using CitiesManager.Core.Services;
 using CitiesManager.Infrastructure.DatabaseContext;
 
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +20,8 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(new ConsumesAttribute("application/json"));
 })
  .AddXmlSerializerFormatters();
+
+builder.Services.AddTransient<IJwtService, JwtService>(); //Injects JWT service to generate JWT token
 
 //Enable versioning in Web API controllers
 var apiVersioningBuilder = builder.Services.AddApiVersioning(config =>

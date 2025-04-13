@@ -2,6 +2,7 @@
 
 using CitiesManager.Core.DTO;
 using CitiesManager.Core.Identity;
+using CitiesManager.Core.ServiceContracts;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -19,6 +20,7 @@ namespace CitiesManager.WebAPI.Controllers.v1
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<ApplicationRole> _roleManager;
+        private readonly IJwtService _jwtService;
 
         /// <summary>
         /// Constructor for AccountController
@@ -29,11 +31,13 @@ namespace CitiesManager.WebAPI.Controllers.v1
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            RoleManager<ApplicationRole> roleManager)
+            RoleManager<ApplicationRole> roleManager,
+            IJwtService jwtService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _jwtService = jwtService;
         }
 
         /// <summary>
@@ -63,7 +67,9 @@ namespace CitiesManager.WebAPI.Controllers.v1
             if (result.Succeeded)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return Ok(user);
+                var authenticationResponse = _jwtService.CreateJwtToken(user); // Generate JWT token
+
+                return Ok(authenticationResponse);
             }
             else
             {
@@ -122,7 +128,9 @@ namespace CitiesManager.WebAPI.Controllers.v1
                     return NoContent();
                 }
 
-                return Ok(new { personName = user.PersonName, email = user.Email });
+                var authenticationResponse = _jwtService.CreateJwtToken(user); // Generate JWT token
+
+                return Ok(authenticationResponse);
             }
             else
             {

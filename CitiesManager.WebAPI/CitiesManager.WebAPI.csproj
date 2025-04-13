@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ClientApp\CitiesAngularApp\node_modules\**" />
+    <Content Remove="ClientApp\CitiesAngularApp\node_modules\**" />
+    <EmbeddedResource Remove="ClientApp\CitiesAngularApp\node_modules\**" />
+    <None Remove="ClientApp\CitiesAngularApp\node_modules\**" />
+    <TypeScriptCompile Remove="ClientApp\CitiesAngularApp\node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\CitiesAngularApp\src\app\validators\custom-validators.ts" />
   </ItemGroup>
 
