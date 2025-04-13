@@ -22,9 +22,9 @@ export class RegisterComponent {
       password: new FormControl(null, [Validators.required]),
       confirmPassword: new FormControl(null, [Validators.required])
     },
-    {
-      validators: [CompareValidation("password", "confirmPassword")]
-     });
+      {
+        validators: [CompareValidation("password", "confirmPassword")]
+      });
   };
 
   get register_personNameControl(): any {
@@ -50,23 +50,23 @@ export class RegisterComponent {
   registerSubmitted() {
     this.isRegisterFormSubmitted = true;
     if (this.registerForm.valid) {
-    this.accountService.postRegister(this.registerForm.value).subscribe({
-      next: (response: RegisterUser) => {
-        console.log(response);
+      this.accountService.postRegister(this.registerForm.value).subscribe({
+        next: (response: RegisterUser) => {
+          console.log(response);
 
-        this.isRegisterFormSubmitted = false;
+          this.isRegisterFormSubmitted = false;
 
-        this.router.navigate(['/cities']);
+          this.router.navigate(['/cities']);
 
-        this.registerForm.reset();
-      },
+          this.registerForm.reset();
+        },
 
-      error: (error) => {
-        console.log(error)
-      },
+        error: (error) => {
+          console.log(error)
+        },
 
-      complete: () => { }
-    });
+        complete: () => { }
+      });
     }
   }
 }

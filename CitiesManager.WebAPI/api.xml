@@ -4,6 +4,46 @@
         <name>CitiesManager.WebAPI</name>
     </assembly>
     <members>
+        <member name="T:CitiesManager.WebAPI.Controllers.v1.AccountController">
+            <summary>
+            Account controller for user registration and login
+            </summary>
+        </member>
+        <member name="M:CitiesManager.WebAPI.Controllers.v1.AccountController.#ctor(Microsoft.AspNetCore.Identity.UserManager{CitiesManager.Core.Identity.ApplicationUser},Microsoft.AspNetCore.Identity.SignInManager{CitiesManager.Core.Identity.ApplicationUser},Microsoft.AspNetCore.Identity.RoleManager{CitiesManager.Core.Identity.ApplicationRole})">
+            <summary>
+            Constructor for AccountController
+            </summary>
+            <param name="userManager">The user manager for managing users</param>
+            <param name="signInManager">The sign-in manager for managing user sign-ins</param>
+            <param name="roleManager">The role manager for managing user roles</param>
+        </member>
+        <member name="M:CitiesManager.WebAPI.Controllers.v1.AccountController.PostRegister(CitiesManager.Core.DTO.RegisterDTO)">
+            <summary>
+            Register a new user
+            </summary>
+            <param name="registerDTO">The registration data transfer object containing user information</param>
+            <returns>The registered user or an error message</returns>
+        </member>
+        <member name="M:CitiesManager.WebAPI.Controllers.v1.AccountController.IsEmailAlreadyRegistered(System.String)">
+            <summary>
+            Check if the email is already registered
+            </summary>
+            <param name="email">The email address to check</param>
+            <returns>True if the email is not registered, false otherwise</returns>
+        </member>
+        <member name="M:CitiesManager.WebAPI.Controllers.v1.AccountController.PostLogin(CitiesManager.Core.DTO.LoginDTO)">
+            <summary>
+            Login the user
+            </summary>
+            <param name="loginDTO">The login data transfer object containing user credentials</param>
+            <returns>No content if login fails, or the logged-in user information</returns>
+        </member>
+        <member name="M:CitiesManager.WebAPI.Controllers.v1.AccountController.GetLogout">
+            <summary>
+            Logout the user
+            </summary>
+            <returns>No content</returns>
+        </member>
         <member name="M:CitiesManager.WebAPI.Controllers.v1.CitiesController.GetCities">
             <summary>
             To get list of cities (including city id and city name) from 'cities' table
