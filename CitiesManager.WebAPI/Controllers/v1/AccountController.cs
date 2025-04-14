@@ -1,4 +1,6 @@
-﻿using Asp.Versioning;
+﻿using System.Security.Claims;
+
+using Asp.Versioning;
 
 using CitiesManager.Core.DTO;
 using CitiesManager.Core.Identity;
@@ -154,6 +156,40 @@ namespace CitiesManager.WebAPI.Controllers.v1
             await _signInManager.SignOutAsync();
 
             return NoContent();
+        }
+
+        [HttpPost("generate-new-jwt-token")]
+        public async Task<IActionResult> GenerateNewAccessToken(TokenModel tokenModel)
+        {
+            if (tokenModel == null)
+            {
+                return BadRequest("Invalid client request");
+            }
+
+            ClaimsPrincipal? principal = _jwtService.GetPrincipalFromJwtToken(tokenModel.Token);
+
+            if (principal == null)
+            {
+                return BadRequest("Invalid client request");
+            }
+
+            string? email = principal.FindFirstValue(ClaimTypes.Email);
+
+            ApplicationUser? user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null || user.RefreshToken != tokenModel.RefreshToken || user.RefreshTokenExpirationDateTime <= DateTime.Now)
+            {
+                return BadRequest("Invalid refresh token");
+            }
+
+            AuthenticationResponse authenticationResponse = _jwtService.CreateJwtToken(user);
+
+            user.RefreshToken = authenticationResponse.RefreshToken;
+            user.RefreshTokenExpirationDateTime = authenticationResponse.RefreshTokenExpirationDateTime;
+
+            await _userManager.UpdateAsync(user);
+
+            return Ok(authenticationResponse);
         }
     }
 }
