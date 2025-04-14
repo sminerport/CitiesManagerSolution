@@ -44,6 +44,11 @@
             </summary>
             <returns>No content</returns>
         </member>
+        <member name="T:CitiesManager.WebAPI.Controllers.v1.CitiesController">
+            <summary>
+            Controller for managing cities
+            </summary>
+        </member>
         <member name="M:CitiesManager.WebAPI.Controllers.v1.CitiesController.GetCities">
             <summary>
             To get list of cities (including city id and city name) from 'cities' table

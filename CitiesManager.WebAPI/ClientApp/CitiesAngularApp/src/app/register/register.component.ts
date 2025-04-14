@@ -56,6 +56,7 @@ export class RegisterComponent {
 
           this.isRegisterFormSubmitted = false;
           localStorage["token"] = response.token;
+          localStorage["refreshToken"] = response.refreshToken;
 
           this.router.navigate(['/cities']);
 

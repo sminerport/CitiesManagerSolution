@@ -3,12 +3,14 @@
 using CitiesManager.Core.Entities;
 using CitiesManager.Infrastructure.DatabaseContext;
 
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace CitiesManager.WebAPI.Controllers.v1
 {
+    /// <summary>
+    /// Controller for managing cities
+    /// </summary>
     [ApiVersion("1.0")]
     public class CitiesController : CustomControllerBase
     {

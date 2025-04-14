@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 using CitiesManager.Core.DTO;
@@ -34,7 +35,8 @@ namespace CitiesManager.Core.Services
             Claim[] claims = new Claim[] {
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), // JWT unique ID
-                new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()), // Issued at (date and time of token generation
+                new Claim(JwtRegisteredClaimNames.Iat,  new DateTimeOffset(DateTime.UtcNow).ToUnixTimeSeconds().ToString(),
+    ClaimValueTypes.Integer64),
                 new Claim(ClaimTypes.NameIdentifier, user.Email), // Unique name identifier of the user (Email)
                 new Claim(ClaimTypes.Name, user.PersonName) // Name of the user
             };
@@ -63,8 +65,22 @@ namespace CitiesManager.Core.Services
                 PersonName = user.PersonName,
                 Email = user.Email,
                 Token = token,
-                Expiration = expiration
+                Expiration = expiration,
+                RefreshToken = GenerateRefreshToken(),
+                RefreshTokenExpirationDateTime = DateTime.Now.AddMinutes(Convert.ToInt32(_configuration["RefreshToken:EXPIRATION_MINUTES"]))
             };
+        }
+
+        /// <summary>
+        /// Creates a refresh token for the user (base64 string of random numbers).
+        /// </summary>
+        /// <returns></returns>
+        private string GenerateRefreshToken()
+        {
+            Byte[] bytes = new byte[64];
+            var randomNumberGenerator = RandomNumberGenerator.Create();
+            randomNumberGenerator.GetBytes(bytes);
+            return Convert.ToBase64String(bytes);
         }
     }
 }
